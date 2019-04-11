@@ -4,7 +4,7 @@ import { doActionOnEnterKey } from '../helpers/listeners'
 import { useAppContext } from './hooks'
 
 const PublishMessage = () => {
-  const { dispatch } = useAppContext()
+  const { pubsub: { publish }, state: { username } } = useAppContext()
   const [text, setText] = useState('')
 
   const updateText = e => {
@@ -12,7 +12,7 @@ const PublishMessage = () => {
   }
 
   const publishMessage = () => {
-    if (text.trim()) dispatch(newMessage(text))
+    if (text.trim()) publish(newMessage({ text, username }))
   }
 
   return (
